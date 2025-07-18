@@ -44,15 +44,19 @@ while True:
       name1=input("Student name: ")
       add_student(name1)
     elif choice ==2:
-      name1=input("Student name: ")
-      grade1 = float(input("student grade: "))
-      add_grade(name1,grade1)
+      student_name_for_grade = input("Enter student name: ")
+      try:
+        # FIX 1: Added try-except for grade input robustness
+        grade_to_add = float(input("Enter student grade: "))
+        add_grade(student_name_for_grade, grade_to_add)
+      except ValueError:
+        print("Invalid grade. Please enter a number (e.g., 85 or 92.5).")
     elif choice == 3:
       name1=input("Student name: ")
       view_grades(name1)
     elif choice==4:
       name_for_average = input("Enter student name: ")
-      result = calculate_average(name1)
+      result = calculate_average(name_for_average)
       print(f"Average for {name_for_average}: {result}")
     elif choice == 5:
       print("Exiting Gradebook. Goodbye!")
