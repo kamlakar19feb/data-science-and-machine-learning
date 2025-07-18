@@ -2,35 +2,33 @@ gradebook={}
 def add_student(student_name):
   if student_name in gradebook:
     print("Student already exists")
-    pass
   else:
     gradebook[student_name]=[]
     print("Student added")
 def add_grade(student_name, grade):
   if student_name in gradebook:
     gradebook[student_name].append(grade)
-    print("Grade updated")
+    print(f"Grade {grade} added for {student_name}.")
   else:
     print("Student not found.")
 def view_grades(student_name):
   if student_name in gradebook:
-    print("Name of the student is:",student_name)
+    print(f"--- Grades for {student_name} ---")
     if gradebook[student_name]:
-      print("Grades of the student:",gradebook[student_name])
+      print(f"Grades: {', '.join(map(str, gradebook[student_name]))}")
     else:
-      print("No grades recorded for this student.")
+      print(f"No grades recorded for {student_name}.")
   else:
-    print("Student not found.")
+    print(f"Student '{student_name}' not found.")
 def calculate_average(student_name):
   if student_name in gradebook:
-    print(gradebook[student_name])
-    if gradebook[student_name]==[]:
-      print("No grades to calculate average.")
+    if not gradebook[student_name]:
+      return "No grades to calculate average."
     else:
-      Averg= round((sum(gradebook[student_name])/len(gradebook[student_name])),2)
-      return Averg
+      average = sum(gradebook[student_name]) / len(gradebook[student_name])
+      return round(average, 2)
   else:
-    print("Student not found.")
+    return f"Student '{student_name}' not found."
 while True:
   print("\n--- Student Gradebook Menu ---")
   print("1. Add Student")
@@ -42,26 +40,20 @@ while True:
 
   try:
     choice = int(input("Enter your choice: "))
-
     if choice ==1:
       name1=input("Student name: ")
       add_student(name1)
-      print("You chose to Add Student.")
     elif choice ==2:
       name1=input("Student name: ")
       grade1 = float(input("student grade: "))
       add_grade(name1,grade1)
-      print("You chose to Add Grades.")
     elif choice == 3:
       name1=input("Student name: ")
       view_grades(name1)
     elif choice==4:
-      name1=input("Student name: ")
-      if gradebook[name1]==[]:
-        print("Error -No grades available for average")
-      else:
-        print(calculate_average(name1))
-      print("You chose to Calculate Average.")
+      name_for_average = input("Enter student name: ")
+      result = calculate_average(name1)
+      print(f"Average for {name_for_average}: {result}")
     elif choice == 5:
       print("Exiting Gradebook. Goodbye!")
       break
